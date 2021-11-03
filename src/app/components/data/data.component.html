@@ -1,0 +1,159 @@
+<div class="container mt-5">
+
+    <section id="header" class="pb-2"> 
+        <span class="mx-3"><b>بيــانات القيــد </b></span>
+        <img class="img" src="../assets/Images/menu.png"/>
+    </section>
+<section class="row pb-3 mt-5" id="row">
+   
+    <div class="d-block col-12 col-md-6 sec">
+        <div class="d-flex">
+            
+            <div class="col-4">
+                <br/>
+                <button class="btn btn-primary mx-2" (click)="add()" >+</button>
+                <button class="btn btn-primary mx-2" (click)="refresh()">
+                    <img height="20px" width="20px" src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-refresh-basic-ui-elements-flatart-icons-outline-flatarticons.png"/>
+                </button>
+            </div>
+            <div class="col-8">
+                <label> مجمع الحركة  </label>
+                <select class="form-control form">
+                            <option> -- اختر عنصر --</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <label> الوصـــف </label>
+            <textarea formControlName="comment" id="description" required class="form-control" dir="rtl"></textarea>
+            <span class="span" id="spanmessage">حقل يجب تعبئته</span>
+
+        </div>
+
+    </div>
+
+    
+    <div class="row col-12 col-md-6 sec">
+       
+       
+        <div class="row col-12 col-md-4">
+            <div>
+                <label> التاريخ  </label>
+                <input type="date" id="date" required class="form-control"/>
+                <span class="span" id="spandate">حقل يجب تعبئته</span>
+            </div>
+            <div>
+                <label> الاسم المختصر  </label>
+                <input id="EName" disabled type="text" class="form-control" value="Manual"/>
+            </div>
+         
+            
+        </div>
+        <div  class="row col-12 col-md-4">
+            <div>
+                <label> الرقم النظامى  </label>
+                <input type="number" disabled class="form-control"  value="0"/>
+                </div>
+           
+                <div>
+                    <label> رقم المستند </label>
+                    <input type="number" disabled class="form-control"/>
+                </div>
+        </div>
+        <div class="row col-12 col-md-4">
+            <div>
+                <label> رقم القيد </label>
+                <input type="number" disabled class="form-control"  value="0"/>
+            </div>
+            <div>
+
+                <label> نوع الحركة  </label>
+                <select  class="form-control form" required (change)="select($event)" [(ngModel)]="selectedValue">
+                            <option>قيد يومية</option>
+                </select>
+                <span class="span" id="spantype">حقل يجب اختياره</span>
+            </div>    
+            
+        </div>
+        
+        <div class="form mt-3 text-center">
+            <input type="file">
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <section id="header1" class="pb-2 mt-5"> 
+        <span class="mx-3"><b> تفـــــــاصيـــل </b></span>
+        <img class="img" src="../assets/Images/menu.png"/>
+    </section>
+</section>
+
+<section class="row mt-5">
+    <div class="col-12 col-md-6">
+        <input type="button" class="btn btn-primary" value="إضــــــافة صفـــوف+" (click)="addRows()">   
+        <input type="button" class="btn btn-success mx-5" value="إضــــــافة بيــانات">
+    </div>
+   
+    <div class="row col-12 col-md-6" id="inputs">
+        <div class="col-12 col-md-4">
+            <label> الرصــيد مديــن </label>
+            <input type="text" disabled class="form-control">
+            
+        </div>
+        <div class="col-12 col-md-4">
+            <label> الفـــرق</label>
+            <input type="text" disabled class="form-control">
+            
+        </div>
+        <div class="col-12 col-md-4">
+            <label> الرصــيد دائـــــن </label>
+            <input type="text" disabled class="form-control">
+            
+        </div>
+    </div>
+    
+</section>
+ 
+
+
+<section class="row mt-5 mb-5">
+    <table class="table table-bordered text-center" id="table">
+        <thead>
+            <tr class="bg-primary">
+                <th> حـــذف</th>
+                <th>البائــع</th>
+                <th>البيــان</th>
+                <th>اســـم الحســــاب</th>
+                <th>رقــم الحســــاب</th>
+                <th>دائـــن</th>
+                <th>مديــن</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of rowInRunTime">                
+                <td><img class="img bg-danger" src="../assets/Images/trash.svg"/></td>
+                <td><input type="text" class="form-control"></td>
+                <td><input type="text" class="form-control"></td>
+                <td><input type="text" class="form-control"></td>
+                <td><input type="text" class="form-control"></td>
+                <td class="bg-success"><input type="text" class="form-control"></td>
+                <td class="bg-danger"><input type="text" class="form-control"></td>
+            </tr>
+            <tr *ngFor="let item of accountChart">
+                <td><img class="img bg-danger" src="../assets/Images/trash.svg" (click)="deleteRow(item)"/></td>
+                <td><input type="text" class="form-control" [value]="item.nameAr"></td>
+                <td><input type="text" class="form-control" [value]="item.nameEn"></td>
+                <td><input type="text" class="form-control" [value]="item.id"></td>
+                <td><input type="number" class="form-control" [value]="item.number"></td>
+                <td class="bg-success"><input type="text" (click)="makeDebtorZero(item)" [attr.id]="'Debtor'+item.id" class="form-control"></td>
+                <td class="bg-danger"><input type="text"  (click)="makeCreditorZero(item)" [attr.id]="'Creditor'+item.id" class="form-control"></td>
+            </tr>
+
+            
+        </tbody>
+
+    </table>
+</section>
+</div>

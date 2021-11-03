@@ -1,0 +1,28 @@
+.img{
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    
+}
+#header,#row,#header1,#inputs{
+    text-align: right;   
+}
+#header1{
+    box-shadow: 0px 2px #d6d2d2;
+    border-radius: 5px;
+}
+.form,input{
+    direction: rtl;
+}
+.span {
+    display: none;
+    color:red
+}
+#EName{
+    direction: ltr;
+}
+.sec{
+    box-shadow: 2px 2px #d6d2d2;
+    border-radius: 5px;
+    padding-bottom: 50px;
+}
