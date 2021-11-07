@@ -18,4 +18,12 @@ export class AccountChartService {
   DeleteAccount(id:any){
     return this.http.delete<any>(this.baseLink + 'AccountChart/'+id);
   }
+
+  searchAccounts(searched: any) {
+    return this.http.get<AccountChart[]>((this.baseLink + 'AccountChart/search?name='+searched ))
+  }
+
+  addDtat(data:any) {
+    return this.http.post(this.baseLink + 'AccountChart',data)
+  }
 }

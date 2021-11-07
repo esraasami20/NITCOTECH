@@ -93,23 +93,23 @@
 <section class="row mt-5">
     <div class="col-12 col-md-6">
         <input type="button" class="btn btn-primary" value="إضــــــافة صفـــوف+" (click)="addRows()">   
-        <input type="button" class="btn btn-success mx-5" value="إضــــــافة بيــانات">
+        <input type="button" class="btn btn-success mx-5" value="إضــــــافة بيــانات" (click)="addData()">
     </div>
    
     <div class="row col-12 col-md-6" id="inputs">
         <div class="col-12 col-md-4">
             <label> الرصــيد مديــن </label>
-            <input type="text" disabled class="form-control">
+            <input type="text" id="DebtorBalance"  [(ngModel)]="DebtorBalance"  class="form-control">
             
         </div>
         <div class="col-12 col-md-4">
             <label> الفـــرق</label>
-            <input type="text" disabled class="form-control">
-            
+            <input type="text" id="division" [(ngModel)]="division"  class="form-control">
         </div>
+        <!-- disabled -->
         <div class="col-12 col-md-4">
             <label> الرصــيد دائـــــن </label>
-            <input type="text" disabled class="form-control">
+            <input type="text" id="CreditorBalance" [(ngModel)]="CreditorBalance"  class="form-control">
             
         </div>
     </div>
@@ -131,17 +131,31 @@
                 <th>مديــن</th>
             </tr>
         </thead>
-        <tbody>
-            <tr *ngFor="let item of rowInRunTime">                
-                <td><img class="img bg-danger" src="../assets/Images/trash.svg"/></td>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="text" class="form-control"></td>
-                <td class="bg-success"><input type="text" class="form-control"></td>
-                <td class="bg-danger"><input type="text" class="form-control"></td>
+        <tbody >
+            <tr *ngFor="let item of rowInRunTime; let i=index">                
+                <td style="cursor: pointer;"><img style="cursor: pointer;" class="img bg-danger" src="../assets/Images/trash.svg" (click)="deleteRow(i)"/></td>
+                <td><input type="text" (keyup)="saveSeller($event,i)" [attr.id]="'seller'+ i" class="form-control"></td>
+                <!-- [(ngModel)]="saveSellerValue" -->
+                <td><input type="text" (keyup)="saveInfo($event,i)" [attr.id]="'info'+ i" class="form-control" ></td>
+                <!-- [(ngModel)]="saveInfoValue" -->
+                <td>
+                    <input type="text" (keyup)="searchName(i)" [attr.id]="'name'+ i" class="form-control">
+                    <!-- <select class="form-control" [attr.id]="'selectName'+ i">
+                        <option  *ngFor="let item of accountChart" value="{{item.id}}"> {{item.nameAr}}</option>
+                    </select> -->
+                </td>
+                <td>
+                    <input type="text" (keyup)="searchNumber(i)" [attr.id]="'number'+ i" class="form-control">
+                    <!-- <select  class="form-control">
+                        <option *ngFor="let item of accountChartNames" value="{{item.id}}"> {{item.number}}</option>
+                    </select> -->
+                </td>
+                <td class="bg-success"><input type="text" value="0" (click)="makeDebtorZero(i)" [attr.id]="'Debtor'+ i" class="form-control"></td>
+                <td class="bg-danger"><input type="text" value="0" (click)="makeCreditorZero(i)" [attr.id]="'Creditor'+i" class="form-control"></td>
             </tr>
-            <tr *ngFor="let item of accountChart">
+            
+           
+            <!-- <tr *ngFor="let item of accountChart">
                 <td><img class="img bg-danger" src="../assets/Images/trash.svg" (click)="deleteRow(item)"/></td>
                 <td><input type="text" class="form-control" [value]="item.nameAr"></td>
                 <td><input type="text" class="form-control" [value]="item.nameEn"></td>
@@ -149,7 +163,7 @@
                 <td><input type="number" class="form-control" [value]="item.number"></td>
                 <td class="bg-success"><input type="text" (click)="makeDebtorZero(item)" [attr.id]="'Debtor'+item.id" class="form-control"></td>
                 <td class="bg-danger"><input type="text"  (click)="makeCreditorZero(item)" [attr.id]="'Creditor'+item.id" class="form-control"></td>
-            </tr>
+            </tr> -->
 
             
         </tbody>
